@@ -70,11 +70,11 @@ resultSort <- result[order(result$pPred),]
 
 # Prep for latex table, use excel2LaTeX macro to make table
 geneNames <- gsub("\\|[0-9]*", "", as.character(resultSort[, "geneNames"]))
-pPredForLatex <- cbind(geneNames, logpPred = signif(log(resultSort$pPred,10), 3),
+pPredResults <- cbind(geneNames, logpPred = signif(log(resultSort$pPred,10), 3),
           signif(resultSort[, c(12,4,5,6)],3))
-write.csv(pPredForLatex, file = "pPredForLatex.csv", row.names=FALSE)
+write.csv(pPredResults, file = "pPredResults.csv", row.names=FALSE)
 
-pPredForLatex[1:15,]
+pPredResults[1:15,]
 #      geneNames    logpPred t0LUADoverLUSC mStop deviance   aic
 # 2708      DSG3        -212         0.0100     5    40.10  68.1
 # 4763      KRT5        -210         0.0107     4    12.50  38.2

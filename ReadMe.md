@@ -12,7 +12,7 @@ The accompanying R package is at [https://github.com/bdsegal/fastPerm](https://g
     1. First, run code in the `sym` and `nonSym` sub-directories
     2. Second, run `plots_ratio.R`
 4. `application_cancer`: Code for the analysis with cancer genomic data:
-    1. Download data from [TCGA](https://tcga-data.nci.nih.gov/tcga/) and place the unzipped folders in the data sub-directory. The data we downloaded were labeled as `unc.edu_LUAD.IlluminaHiSeq_RNASeqV2.Level_3.1.12.0` and `unc.edu_LUSC.IlluminaHiSeq_RNASeqV2.Level_3.1.8.0`.
+    1. Download data from [TCGA](https://tcga-data.nci.nih.gov/tcga/) and place the unzipped folders in a sub-directory called `data`. The data we downloaded were labeled as `unc.edu_LUAD.IlluminaHiSeq_RNASeqV2.Level_3.1.12.0` and `unc.edu_LUSC.IlluminaHiSeq_RNASeqV2.Level_3.1.8.0`.
     2. Run `cancerAnalysis_parallel.R`
     3. Run `cancerAnalysis_parallel_post.R`
     .4 Run `cancerAnalysis_parallel_replicateTop15.R`
