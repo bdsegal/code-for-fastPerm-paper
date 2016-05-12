@@ -56,12 +56,15 @@ simFun <- function(sub){
     y <- rexp(n = ny, rate = sub$ratey[i])
 
     # R ~ B'(nx, ny) and 1/R ~ B'(ny, nx)
-    R <- (mean(x)*nx)/(mean(y)*ny)
-    sub$pBeta[i] <- pbeta(R/(1+R), nx, ny, lower.tail=FALSE)+ 
-      pbeta(1/(1+R), ny, nx, lower.tail=TRUE)
+    t <- mean(x)/mean(y)
+    r1 <- nx/ny*t
+    r2 <- ny/nx*t
+    sub$pBeta[i] <- pbeta(r1/(1+r1), nx, ny, lower.tail=FALSE)+
+      pbeta(r2/(1+r2), ny, nx, lower.tail=FALSE)
 
     sub$timePred[i] <- system.time(fp <- 
-      fastPerm(x, y, testStat = ratioMean))[3]
+      fastPerm(x, y, testStat = ratioMean)
+      )[3]
     sub$pPred[i] <- fp$pPred
     sub$mStop[i] <- fp$mStop
 
@@ -71,7 +74,7 @@ simFun <- function(sub){
     sub$pAsymNorm[i] <- fpAsym$pNorm
     sub$pAsymT[i] <- fpAsym$pT
     
-    # # using EXPERT package
+    # using EXPERT package
     data.input<-list(x=x, y=y)
     t.obs<-ratio.test.statistic(data.input)
 

@@ -49,8 +49,8 @@ ggplot(aes(x=log(pBeta,10), y=log(mStop*1000,10), color=as.factor(n),
 ggsave(file.path(paperPath,"simExp_sym_iter.png"))
 
 summary(log(symResults$pExpert6,10))
-#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-# -62.160 -23.660  -9.900 -16.820  -5.525  -2.691     251 
+#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+# -64.730 -22.000 -10.870 -16.570  -5.857  -2.522     239 
 
 # nonsymmetric sample sizes
 load("nonSym/nonSymResultsExp_parallel.RData")
@@ -93,8 +93,8 @@ ggplot(aes(x=log(pBeta,10), y=log(mStop*1000,10), color=as.factor(nx),
 ggsave(file.path(paperPath,"simExp_nonSym_iter.png"))
 
 summary(log(nonSymResults$pExpert6,10))
-#   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-# -57.060 -18.580 -11.610 -14.010  -6.244  -2.542      31 
+#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+# -51.410 -17.870 -11.700 -14.030  -6.419  -2.443      30  
 
-plot(y=log(symResults$pExpert6,10), x=log(symResults$pBeta,10))
+plot(y=log(nonSymResults$pExpert6,10), x=log(nonSymResults$pBeta,10))
 abline(a=0, b=1)

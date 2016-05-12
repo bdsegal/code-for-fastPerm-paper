@@ -1,4 +1,5 @@
 *.Rhistory
 *.RData
+*old/
 unc.edu_LUAD.IlluminaHiSeq_RNASeqV2.Level_3.1.12.0/
 unc.edu_LUSC.IlluminaHiSeq_RNASeqV2.Level_3.1.8.0/

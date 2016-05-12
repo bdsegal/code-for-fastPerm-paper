@@ -102,26 +102,15 @@ pFunRatio <- function(x, t0){
   
 pRatioBeta <- function(x,y){
   
-  xbar <- mean(x)
-  ybar <- mean(y)
-
   nx <- length(x)
   ny <- length(y)
 
-  if(xbar < ybar){
-    ybarTemp <- ybar
-    ybar <- xbar
-    xbar <- ybarTemp
-
-    nyTemp <- ny
-    ny <- nx
-    nx <- nyTemp
-  }
-
-  R <- (xbar*nx)/(ybar*ny)
-  return(pbeta(R/(1+R), nx, ny, lower.tail=FALSE)+ 
-         pbeta(1/(1+R), ny, nx, lower.tail=TRUE)
-        )
+  t <- mean(x)/mean(y)
+  r1 <- nx/ny*t
+  r2 <- ny/nx*t
+  return(pbeta(r1/(1+r1), nx, ny, lower.tail=FALSE)+
+    pbeta(r2/(1+r2), ny, nx, lower.tail=FALSE)
+    )
 }
 
 parFun <- function(genesToTestSub){

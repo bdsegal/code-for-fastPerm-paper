@@ -1,4 +1,5 @@
 library(ggplot2)
+
 paperPath <- "/home/bsegal/Dropbox/Research/PermTest/neighborhoods/paper"
 
 ### Analysis after computing p-values

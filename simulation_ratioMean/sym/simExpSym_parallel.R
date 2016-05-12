@@ -43,6 +43,7 @@ simFun <- function(sub){
   sub$timeExpert6 <- NA
 
   sub$mStop <- NA
+
   sub$EmStop <- NA
 
   sub$maxErrorExpert6 <- NA
@@ -53,10 +54,12 @@ simFun <- function(sub){
     x <- rexp(n = n, rate = 1)
     y <- rexp(n = n, rate = sub$ratey[i])
 
-  # R ~ B'(nx, ny) and 1/R ~ B'(ny, nx)
-    R <- mean(x)/mean(y)
-    sub$pBeta[i] <- pbeta(R/(1+R), n, n, lower.tail=FALSE)+
-      pbeta(1/(1+R), n, n, lower.tail=TRUE)
+    # beta prime p-value
+    t <- mean(x)/mean(y)
+    r1 <- t
+    r2 <- t
+    sub$pBeta[i] <- pbeta(r1/(1+r1), n, n, lower.tail=FALSE)+
+      pbeta(r2/(1+r2), n, n, lower.tail=FALSE)
 
     sub$timePred[i] <- system.time(fp <- 
       fastPerm(x, y, testStat = ratioMean))[3]
