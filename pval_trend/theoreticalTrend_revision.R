@@ -86,7 +86,6 @@ pApproxRlin <- function(m, nx, ny, sigmax2, sigmay2, mux, muy){
   return(list(p=p, eta_plus=eta_plus))
 }
 
-
 # Plots ---------------------------------------------------
 
 nx=100
@@ -108,7 +107,7 @@ ggplot(aes(x = m, y = log(p,10)), data = data)+
   geom_point(size = 1.5)+
   theme_bw(25)+
   labs(y = expression(paste("lo", g[10], "(p)")), x = "m")
-ggsave(file.path(paperPath,"pApprox_ratio_100_100.png"))
+ggsave(file.path(paperPath,"pApprox_ratio_100_100_revision.png"))
 
 data$p[which(data$p <= 10^-3)] <- 10^-3
 
@@ -117,4 +116,4 @@ ggplot(aes(x = m, y = log(p,10)), data = data)+
   geom_point(size = 1.5)+
   theme_bw(25)+
   labs(y = expression(paste("lo", g[10], "(p)")), x = "m")
-ggsave(file.path(paperPath,"pApprox_100_100_10ToThe3Cutoff.png"))
+ggsave(file.path(paperPath,"pApprox_100_100_10ToThe3Cutoff_revision.png"))

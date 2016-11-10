@@ -1,4 +1,4 @@
-## Code for reproducing simulations and analyses in "Fast approximation of small p-values in permutation tests by partitioning the permutation space" by Brian Segal, Thomas Braun, and Hui Jiang. Submitted.
+## Code for reproducing simulations and analyses in "Fast approximation of small p-values in permutation tests by partitioning the permutations" by Brian Segal, Thomas Braun, Michael Elliott, and Hui Jiang. Submitted.
 
 The accompanying R package is at [https://github.com/bdsegal/fastPerm](https://github.com/bdsegal/fastPerm).
 
