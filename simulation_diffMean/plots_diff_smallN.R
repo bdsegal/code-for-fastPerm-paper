@@ -8,7 +8,7 @@ paperPath <- "/home/bsegal/Dropbox/Research/PermTest/neighborhoods/paper"
 # paperPath <- "C:/Users/bdsegal/Dropbox/Research/PermTest/neighborhoods/paper"
 
 # symmetric sample size
-load("sym/symResultsDiff_parallel.RData")
+load("sym/symResultsDiff_parallel_smallN.RData")
 
 plotData <- melt(symResults, id.vars=c("mux","n", "pt"), 
   measure.vars=c("pPred", "pAsymNorm", "pExpert6"))
@@ -29,7 +29,7 @@ ggplot(aes(x=log(pt,10), y=log(value,10), color=as.factor(n),
   scale_shape_discrete("n")+
   # scale_x_continuous(breaks=seq(0,-120,-30))+
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
-ggsave(file.path(paperPath,"simDiff_sym.png"))
+ggsave(file.path(paperPath,"simDiff_sym_smallN.png"))
 
 symResults %>% group_by(n, mux) %>%
   summarize(mStopMean = mean(mStop))
@@ -45,14 +45,14 @@ ggplot(aes(x=log(pt,10), y=log(mStop*1000,10), color=as.factor(n),
   scale_color_discrete("n")+
   scale_shape_discrete("n")+
   geom_hline(yintercept=log(1e6+5e4,10))
-ggsave(file.path(paperPath,"simDiff_sym_iter.png"))
+ggsave(file.path(paperPath,"simDiff_sym_iter_smallN.png"))
 
 summary(log(symResults$pExpert6,10))
 #    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-# -32.230 -11.600  -8.948 -10.090  -6.423  -2.650     385 
+# -36.630 -18.250 -12.180 -13.580  -9.115  -3.525     130 
 
 # non-symmetrblic sample size
-load(file="nonSym/nonSymResultsDiff_parallel.RData")
+load(file="nonSym/nonSymResultsDiff_parallel_smallN.RData")
 
 plotData <- melt(nonSymResults, id.vars=c("nx", "pt"), 
   measure.vars=c("pPred","pAsymNorm", "pExpert6"))
@@ -72,7 +72,7 @@ ggplot(aes(x=log(pt,10), y=log(value,10), color=as.factor(nx),
   scale_color_discrete(expression(n[x]))+
   scale_shape_discrete(expression(n[x]))+
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
-ggsave(file.path(paperPath,"simDiff_nonSym.png"))
+ggsave(file.path(paperPath,"simDiff_nonSym_smallN.png"))
 
 nonSymResults %>% group_by(nx) %>%
   summarize(mStopMean = mean(mStop))
@@ -87,8 +87,8 @@ ggplot(aes(x=log(pt,10), y=log(mStop*100,10), color=as.factor(nx),
   scale_color_discrete(expression(n[x]))+
   scale_shape_discrete(expression(n[x]))+
   geom_hline(yintercept=log(1e6+5e4,10))
-ggsave(file.path(paperPath,"simDiff_nonSym_iter.png"))
+ggsave(file.path(paperPath,"simDiff_nonSym_iter_smallN.png"))
 
 summary(log(nonSymResults$pExpert6,10))
 #    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-# -36.780 -22.710 -14.860 -16.370  -8.698  -2.541     179 
+# -51.580 -23.400 -18.870 -19.580 -15.280  -6.463     205 

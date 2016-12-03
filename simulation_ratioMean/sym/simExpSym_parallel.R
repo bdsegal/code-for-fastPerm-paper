@@ -25,6 +25,7 @@ simFun <- function(sub){
 
   library(fastPerm)
   library(EXPERT)
+  library(PearsonDS)
 
   ratio.test.statistic <- function(data.input){
       xbar <- mean(data.input$x)
@@ -54,12 +55,12 @@ simFun <- function(sub){
     x <- rexp(n = n, rate = 1)
     y <- rexp(n = n, rate = sub$ratey[i])
 
-    # beta prime p-value
-    t <- mean(x)/mean(y)
-    r1 <- t
-    r2 <- t
-    sub$pBeta[i] <- pbeta(r1/(1+r1), n, n, lower.tail=FALSE)+
-      pbeta(r2/(1+r2), n, n, lower.tail=FALSE)
+    # beta prime distribution
+    t0 <- max(mean(x) / mean(y), mean(y) / mean(x))
+    sub$pBeta[i] <- ppearsonVI(t0, a = n, b = n, scale = 1, location = 0,
+                               lower.tail = FALSE)+
+                    ppearsonVI(t0, a = n, b = n, scale = 1, location = 0,
+                               lower.tail = FALSE)
 
     sub$timePred[i] <- system.time(fp <- 
       fastPerm(x, y, testStat = ratioMean))[3]

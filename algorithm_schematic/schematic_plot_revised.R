@@ -3,6 +3,7 @@ library(reshape2)
 
 paperPath <- "/home/bsegal/Dropbox/Research/PermTest/neighborhoods/paper"
 
+
 # expected value of W in partition m
 muw <- function(m, muy, mux) {
 
@@ -62,7 +63,7 @@ pApproxR <- function(m, nx, ny, sigmax2, sigmay2, mux, muy){
   E_mean <- g(m, nx, ny, mux, muy)
   E_var <- VarR(m,nx,ny,mux,muy,sigmax2,sigmay2)
   
-  t <- mux/muy
+  t <- max(mux/muy, muy/mux)
 
   eta_plus <- (t - E_mean)/sqrt(E_var)
    
@@ -76,13 +77,14 @@ pApproxRlin <- function(m, nx, ny, sigmax2, sigmay2, mux, muy){
   E_mean <- gLin(m, nx, ny, mux, muy)
   E_var <- VarRLin(m,nx,ny,mux,muy,sigmax2,sigmay2)
   
-  t <- mux - muy
+  t <- abs(mux - muy)
 
   eta_plus <- (t - E_mean)/sqrt(E_var)
   p <- pnorm(eta_plus,lower.tail=FALSE)
   
   return(list(p=p, eta_plus=eta_plus))
 }
+
 
 ##########
 # plots for Ratio statistic
@@ -91,16 +93,20 @@ ny=100
 mux <- sigmax2 <- 4
 muy <- sigmay2 <- 2
 
+pm1 <- pApproxR(pmin(1:(nx-1), (nx-1):1), nx = nx, ny = ny,
+               sigmax2 = sigmax2, sigmay2 = sigmay2,
+               mux = mux, muy = muy)
 
-pm <- pApproxR(m = pmin(1:(nx-1), (nx-1):1), nx=nx, ny=ny,
-               sigmax2=sigmax2, sigmay2=sigmay2,
-               mux=mux, muy=muy)
+pm2 <- pApproxR(pmin(1:(nx-1), (nx-1):1), nx = ny, ny = nx,
+               sigmax2 = sigmay2, sigmay2 = sigmax2,
+               mux = muy, muy = mux)
 
-p <- c(1,pm$p,1)
+p <- c(1, pm1$p + pm2$p, 1)
 
 pDF <- data.frame(m=0:nx, p=p, logp=log(p,10))
 
 M <- min(which(p<10^-3))-1
+# M <- nx / 2
 pDF$count <- with(pDF, p/min(p[1:M]))
 
 

@@ -5,11 +5,11 @@ library(doSNOW)
 library(itertools)
 
 # Symmetric sample sizes ----------------------------------
-n <- c(100, 500, 1000)
+n <- c(20, 40, 60)
 nLen <- length(n)
 nClust <- 6
 
-mux <- c(0.75, 1)
+mux <- c(2, 3)
 muLen <- length(mux)
 
 M <- 100 # M is number of repetitions for each scenario
@@ -45,17 +45,19 @@ simFun <- function(sub){
 
     sub$pt[i] <- t.test(x, y, var.equal = TRUE)$p.value
 
-    sub$timePred[i] <- system.time(fp <- 
-      fastPerm(x, y, testStat = diffMean))[3]
-    sub$pPred[i] <- fp$pPred
-    sub$mStop[i] <- fp$mStop
+    try({
+      sub$timePred[i] <- system.time(fp <- 
+        fastPerm(x, y, testStat = diffMean))[3]
+      sub$pPred[i] <- fp$pPred
+      sub$mStop[i] <- fp$mStop
+    })
 
     sub$EmStop[i] <- mStopDiffMean(x,y)
 
     fpAsym <- fastPermAsym(x,y, testStat=diffMean)
     sub$pAsymNorm[i] <- fpAsym$pNorm
     sub$pAsymT[i] <- fpAsym$pT
-    
+
     # # using EXPERT package
     data.input<-list(x=x, y=y)
     t.obs<-t.test.statistic(data.input)
@@ -90,6 +92,6 @@ system.time(symResults <- foreach(j=blocks, .combine=rbind) %dopar% {
 
 stopCluster(cl)
 
-save(symResults, file ="symResultsDiff_parallel.RData")
+save(symResults, file ="symResultsDiff_parallel_smallN.RData")
 
 

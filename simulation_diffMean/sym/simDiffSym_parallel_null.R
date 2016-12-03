@@ -5,11 +5,11 @@ library(doSNOW)
 library(itertools)
 
 # Symmetric sample sizes ----------------------------------
-n <- c(100, 500, 1000)
+n <- c(20, 40, 60)
 nLen <- length(n)
 nClust <- 6
 
-mux <- c(0.75, 1)
+mux <- 0
 muLen <- length(mux)
 
 M <- 100 # M is number of repetitions for each scenario
@@ -28,6 +28,7 @@ simFun <- function(sub){
   sub$pAsymNorm <- NA
   sub$pAsymT <- NA
   sub$pExpert6 <- NA
+  sub$pPerm <- NA
 
   sub$timePred <- NA
   sub$timeExpert6 <- NA
@@ -37,6 +38,8 @@ simFun <- function(sub){
 
   sub$maxErrorExpert6 <- NA
 
+  nIter <- 1e5
+
   for (i in 1:nrow(sub)){
 
     n <- sub$n[i]
@@ -45,17 +48,33 @@ simFun <- function(sub){
 
     sub$pt[i] <- t.test(x, y, var.equal = TRUE)$p.value
 
-    sub$timePred[i] <- system.time(fp <- 
-      fastPerm(x, y, testStat = diffMean))[3]
-    sub$pPred[i] <- fp$pPred
-    sub$mStop[i] <- fp$mStop
+    # MC simulation
+    z <- c(x, y)
+    N <- length(z)
+    tStar <- rep(NA, length = N)
+    t0 <- abs(mean(x) - mean(y))
+    for (j in 1:nIter){
+      piStar <- sample(1:N)
+      xStar <- z[piStar[1:n]]
+      yStar <- z[piStar[(n+1):N]]
+      tStar[j] <- abs(mean(xStar) - mean(yStar))
+    }
+    sub$pPerm[i] <- mean(c(tStar, t0) >= t0)
+
+
+    try({
+      sub$timePred[i] <- system.time(fp <- 
+        fastPerm(x, y, testStat = diffMean))[3]
+      sub$pPred[i] <- fp$pPred
+      sub$mStop[i] <- fp$mStop
+    })
 
     sub$EmStop[i] <- mStopDiffMean(x,y)
 
     fpAsym <- fastPermAsym(x,y, testStat=diffMean)
     sub$pAsymNorm[i] <- fpAsym$pNorm
     sub$pAsymT[i] <- fpAsym$pT
-    
+
     # # using EXPERT package
     data.input<-list(x=x, y=y)
     t.obs<-t.test.statistic(data.input)
@@ -90,6 +109,6 @@ system.time(symResults <- foreach(j=blocks, .combine=rbind) %dopar% {
 
 stopCluster(cl)
 
-save(symResults, file ="symResultsDiff_parallel.RData")
+save(symResults, file ="symResultsDiff_parallel_null.RData")
 
 

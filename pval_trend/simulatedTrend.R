@@ -61,26 +61,25 @@ x <- rpois(n = nx, lambda = 4)
 y <- rpois(n = ny, lambda = 2)
 out[[1]] <- data.frame(p = pValPlotRatioFacet(x,y), dist="Poisson")
 
+x <- rnbinom(n = nx, size = 3, mu = 2)
+y <- rnbinom(n = ny, size = 3, mu = 4)
+out[[2]] <- data.frame(p = pValPlotRatioFacet(x, y),
+                    dist = "Negative binomial")
 x <- rexp(n = nx, rate = 2)
 y <- rexp(n = ny, rate = 1)
-out[[2]] <- data.frame(p = pValPlotRatioFacet(x, y),
-                    dist = "exponential")
+out[[3]] <- data.frame(p = pValPlotRatioFacet(x, y),
+                    dist = "Exponential")
 
 x <- rlnorm(n = nx, meanlog = 2, sdlog = 1)
 y <- rlnorm(n = ny, meanlog = 1, sdlog = 1)
-out[[3]] <- data.frame(p = pValPlotRatioFacet(x, y),
-                    dist = "log normal")
-
-x <- rnbinom(n = nx, size = 3, mu = 2)
-y <- rnbinom(n = ny, size = 3, mu = 4)
 out[[4]] <- data.frame(p = pValPlotRatioFacet(x, y),
-                    dist = "negative binomial")
+                    dist = "Log normal")
 
 plotData <- do.call(rbind, out)
 plotData$m <- 0:100
 
 plotData$dist <- factor(plotData$dist, levels=c("Poisson",
-                  "negative binomial", "exponential", "log normal"))
+                  "Negative binomial", "Exponential", "Log normal"))
 
 dev.new(width = 14, height = 5)
 ggplot(aes(x = m, log(p, 10)), data = plotData)+
@@ -88,7 +87,7 @@ ggplot(aes(x = m, log(p, 10)), data = plotData)+
   theme_bw(24)+
   facet_wrap(~dist, nrow = 1)+
   labs(y = expression(paste("lo", g[10], "(p)", sep = "")),
-       x = "m")
+       x = "Partition m")
 ggsave(file.path(paperPath,"logp_ratio_mean_facet.png"))
 
 

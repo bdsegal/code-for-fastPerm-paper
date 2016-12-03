@@ -29,13 +29,13 @@ Loading required package: snow
 > library(itertools)
 > 
 > # Symmetric sample sizes ----------------------------------
-> n <- c(100, 500, 1000)
+> n <- c(20, 40, 60)
 > nLen <- length(n)
 > 
-> ratey <- c(1.75, 2.25)
+> ratey <- 1
 > rateLen <- length(ratey)
 > 
-> M <- 100 # M is number of repetitions for each scenario
+> M <- 1000 # M is number of repetitions for each scenario
 > 
 > nClust <- 6
 > 
@@ -61,6 +61,8 @@ Loading required package: snow
 +   sub$pAsymNorm <- NA
 +   sub$pAsymT <- NA
 +   sub$pExpert6 <- NA
++   sub$pPerm <- NA
++   sub$pPermAdj <- NA
 + 
 +   sub$timePred <- NA
 +   sub$timeExpert6 <- NA
@@ -70,6 +72,8 @@ Loading required package: snow
 +   sub$EmStop <- NA
 + 
 +   sub$maxErrorExpert6 <- NA
++ 
++   nIter <- 1e5
 + 
 +   for (i in 1:nrow(sub)){
 + 
@@ -84,17 +88,33 @@ Loading required package: snow
 +                     ppearsonVI(t0, a = n, b = n, scale = 1, location = 0,
 +                                lower.tail = FALSE)
 + 
++     z <- c(x, y)
++     N <- length(z)
++     tStar <- rep(NA, length = N)
++     t0 <- mean(x) / mean(y)
++     for (j in 1:nIter){
++       piStar <- sample(1:N)
++       xStar <- z[piStar[1:n]]
++       yStar <- z[piStar[(n+1):N]]
++       tStar[j] <- mean(xStar) / mean(yStar)
++     }
++     tStarMax <- pmax(tStar, 1/tStar)
++     t0Max <- max(t0, 1/t0)
++     sub$pPerm[i] <- mean(tStarMax >= t0Max)
++     sub$pPermAdj[i] <- mean(c(tStarMax, t0Max) >= t0Max)
++ 
++     try({
 +     sub$timePred[i] <- system.time(fp <- 
 +       fastPerm(x, y, testStat = ratioMean))[3]
 +     sub$pPred[i] <- fp$pPred
 +     sub$mStop[i] <- fp$mStop
-+ 
 +     sub$EmStop[i] <- mStopRatioMean(x,y)
++     })
 + 
 +     fpAsym <- fastPermAsym(x,y, testStat=ratioMean)
 +     sub$pAsymNorm[i] <- fpAsym$pNorm
 +     sub$pAsymT[i] <- fpAsym$pT
-+     
++ 
 +     # using EXPERT package
 +     data.input<-list(x=x, y=y)
 +     t.obs<-ratio.test.statistic(data.input)
@@ -118,6 +138,16 @@ Loading required package: snow
 +   return(sub)  
 + }
 > 
+> # plot(sub$pBeta, sub$pAsymNorm)
+> 
+> # plot(sub$pPerm, sub$pPred, col = "blue")
+> # points(sub$pPerm, sub$pBeta, col = "green")
+> # points(sub$pPerm, sub$pAsymNorm)
+> # # points(sub$pPerm, 2*sub$pAsymNorm)
+> # abline(a = 0, b = 1, col = "red")
+> # legend("topleft", legend = c("Alg", "pBeta", "pAsym"),
+> #   col = c("blue", "green", "black"), lty = 1)
+> 
 > cl <- makeCluster(nClust, type="SOCK")
 > registerDoSNOW(cl)
 > 
@@ -129,8 +159,8 @@ Loading required package: snow
 > 
 > stopCluster(cl)
 > 
-> save(symResults, file ="symResultsExp_parallel.RData")
+> save(symResults, file ="symResultsExp_parallel_null.RData")
 > 
 > proc.time()
      user    system   elapsed 
-    0.281     0.095 16740.415 
+    0.366     0.069 30570.313 

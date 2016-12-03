@@ -1,9 +1,9 @@
 #! /bin/sh
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=bdsegal@umich.edu
-#SBATCH --job-name=DS
+#SBATCH --job-name=DN_null
 #SBATCH --time=7-00:00:00
 #SBATCH --cpus-per-task=6
 #SBATCH --nodes=1
 
-srun R CMD BATCH --no-save ./simDiffSym_parallel.R 
+srun R CMD BATCH --no-save ./simDiffNonSym_parallel_null.R 

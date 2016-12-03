@@ -3,5 +3,3 @@
 *old/
 unc.edu_LUAD.IlluminaHiSeq_RNASeqV2.Level_3.1.12.0/
 unc.edu_LUSC.IlluminaHiSeq_RNASeqV2.Level_3.1.8.0/
-pval_trend/theoreticalTrend.R
-pval_trend/theoreticalTrend_other_stats.R

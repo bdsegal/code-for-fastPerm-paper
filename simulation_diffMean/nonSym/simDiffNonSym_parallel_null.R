@@ -5,16 +5,20 @@ library(doSNOW)
 library(itertools)
 
 # Symmetric sample sizes ----------------------------------
-n <- c(100, 500, 1000)
-nLen <- length(n)
-nClust <- 6
 
-mux <- c(0.75, 1)
+# non-symmetric sample sizes ------------------------------
+nx <- c(20, 40, 60)
+nLen <- length(nx)
+ny <- 100
+
+mux <- 0
 muLen <- length(mux)
 
 M <- 100 # M is number of repetitions for each scenario
 
-params <- data.frame(n=rep(n, each=muLen*M),
+nClust <- 6
+
+params <- data.frame(nx=rep(nx, each=muLen*M),
     mux=rep(mux, each=M)
 )
 
@@ -28,6 +32,7 @@ simFun <- function(sub){
   sub$pAsymNorm <- NA
   sub$pAsymT <- NA
   sub$pExpert6 <- NA
+  sub$pPerm <- NA
 
   sub$timePred <- NA
   sub$timeExpert6 <- NA
@@ -37,26 +42,42 @@ simFun <- function(sub){
 
   sub$maxErrorExpert6 <- NA
 
+  nIter <- 1e5
+
   for (i in 1:nrow(sub)){
 
-    n <- sub$n[i]
-    x <- rnorm(n = n, mean = sub$mux[i], sd=1)
-    y <- rnorm(n = n, mean = 0, sd=1)
+    nx <- sub$nx[i]
+    x <- rnorm(n = nx, mean = sub$mux[i], sd=1)
+    y <- rnorm(n = ny, mean = 0, sd=1)
 
     sub$pt[i] <- t.test(x, y, var.equal = TRUE)$p.value
 
-    sub$timePred[i] <- system.time(fp <- 
-      fastPerm(x, y, testStat = diffMean))[3]
-    sub$pPred[i] <- fp$pPred
-    sub$mStop[i] <- fp$mStop
+    # MC simulation
+    z <- c(x, y)
+    N <- length(z)
+    tStar <- rep(NA, length = N)
+    t0 <- abs(mean(x) - mean(y))
+    for (j in 1:nIter){
+      piStar <- sample(1:N)
+      xStar <- z[piStar[1:nx]]
+      yStar <- z[piStar[(nx+1):N]]
+      tStar[j] <- abs(mean(xStar) - mean(yStar))
+    }
+    sub$pPerm[i] <- mean(c(tStar, t0) >= t0)
 
+    try({
+      sub$timePred[i] <- system.time(fp <- 
+        fastPerm(x, y, testStat = diffMean))[3]
+      sub$pPred[i] <- fp$pPred
+      sub$mStop[i] <- fp$mStop
     sub$EmStop[i] <- mStopDiffMean(x,y)
+    })
 
     fpAsym <- fastPermAsym(x,y, testStat=diffMean)
     sub$pAsymNorm[i] <- fpAsym$pNorm
     sub$pAsymT[i] <- fpAsym$pT
     
-    # # using EXPERT package
+    # using EXPERT package
     data.input<-list(x=x, y=y)
     t.obs<-t.test.statistic(data.input)
 
@@ -84,12 +105,10 @@ registerDoSNOW(cl)
 
 blocks <- isplitIndices(nrow(params), chunks=nClust)
 
-system.time(symResults <- foreach(j=blocks, .combine=rbind) %dopar% {
+system.time(nonSymResults <- foreach(j=blocks, .combine=rbind) %dopar% {
                    return(simFun(params[j,]))
                  })
 
 stopCluster(cl)
 
-save(symResults, file ="symResultsDiff_parallel.RData")
-
-
+save(nonSymResults, file ="nonSymResultsDiff_parallel_null.RData")
