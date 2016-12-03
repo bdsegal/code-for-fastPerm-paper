@@ -7,11 +7,11 @@ The accompanying R package is at [https://github.com/bdsegal/fastPerm](https://g
 1. `pval_trend`: Code for Figure 1
 2. `simulation_diffMean`: Code for the difference in means simulations
     1. Run code in the `sym` and `nonSym` sub-directories
-    2. Run `plots_diff.R`
+    2. Run `plots_diff.R` and similarly named scrips
     3. Run code in `other_methods` sub-directory for MCC and saddlepoint approximation
 3. `simulation_ratioMean`: Code for the ratio of means simulations
     1. First, run code in the `sym` and `nonSym` sub-directories
-    2. Second, run `plots_ratio.R`
+    2. Second, run `plots_ratio.R` and similarly named scrips
 4. `application_cancer`: Code for the analysis with cancer genomic data:
     1. Download data from [TCGA](https://tcga-data.nci.nih.gov/tcga/) and place the unzipped folders in a sub-directory called `data`. The data we downloaded were labeled as `unc.edu_LUAD.IlluminaHiSeq_RNASeqV2.Level_3.1.12.0` and `unc.edu_LUSC.IlluminaHiSeq_RNASeqV2.Level_3.1.8.0`.
     2. Run `cancerAnalysis_parallel.R`
