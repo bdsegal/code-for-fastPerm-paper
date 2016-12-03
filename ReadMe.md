@@ -8,6 +8,7 @@ The accompanying R package is at [https://github.com/bdsegal/fastPerm](https://g
 2. `simulation_diffMean`: Code for the difference in means simulations
     1. Run code in the `sym` and `nonSym` sub-directories
     2. Run `plots_diff.R`
+    3. Run code in `other_methods` sub-directory for MCC and saddlepoint approximation
 3. `simulation_ratioMean`: Code for the ratio of means simulations
     1. First, run code in the `sym` and `nonSym` sub-directories
     2. Second, run `plots_ratio.R`
