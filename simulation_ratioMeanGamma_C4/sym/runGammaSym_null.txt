@@ -1,0 +1,10 @@
+#! /bin/sh
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=bdsegal@umich.edu
+#SBATCH --job-name=C4s_null
+#SBATCH --time=7-00:00:00
+#SBATCH --cpus-per-task=6
+#SBATCH --nodes=1
+
+srun R CMD BATCH --no-save ./simGammaSym_null.R
+
