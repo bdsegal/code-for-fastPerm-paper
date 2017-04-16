@@ -5,17 +5,17 @@ The accompanying R package is at [https://github.com/bdsegal/fastPerm](https://g
 ### Contents:
 
 1. `pval_trend`: Code for Figure 1
-2. `simulation_diffMean_C1`: Code for the difference in means simulations with normal data (Section C.1 in Web Appendix)
+2. `simulation_diffMean_C1`: Code for the difference in means simulations with normal data and equal variances (Web Appendix C.1) and unequal variances (Web Appendix E)
     1. Run code in the `sym` and `nonSym` sub-directories
     2. Run `plots_diff.R` and similarly named scripts
     3. Run code in `other_methods` sub-directory for MCC and saddlepoint approximation
-3. `simulation_ratioMean_C2`: Code for the ratio of means simulations with exponential data (Section C.2 in Web Appendix)
+3. `simulation_ratioMean_C2`: Code for the ratio of means simulations with exponential data (Web Appendix C.2)
     1. Run code in the `sym` and `nonSym` sub-directories
     2. Run `plots_ratio.R` and similarly named scripts
-4. `simulation_diffMean_C3`: Code for the difference in means simulations with gamma data (Section C.3 in Web Appendix)
+4. `simulation_diffMean_C3`: Code for the difference in means simulations with gamma data (Web Appendix C.3)
     1. Run code in the `sym` and `nonSym` sub-directories
     2. Run `plots_gammaDiff_smallN.R` and similarly named script
-5. `simulation_ratioMeanGamma_C4`: Code for the ratio of means simulations with gamma data (Section C.4 in Web Appendix)
+5. `simulation_ratioMeanGamma_C4`: Code for the ratio of means simulations with gamma data (Web Appendix C.4)
     1. Run code in the `sym` and `nonSym` sub-directories
     2. Run `plots_ratio_smallN.R` and similarly named script
 6. `application_cancer`: Code for the analysis with cancer genomic data:
