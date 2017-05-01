@@ -19,6 +19,8 @@ qplot(log(result[, "pPred"], 10), geom = "histogram")+
   theme_bw(24)+
   geom_vline(xintercept = c(-3), color = "red", linetype = "dashed", size = 1.5)
 ggsave(file.path(paperPath,"pPred_hist.png"))
+ggsave(file.path(paperPath,"pPred_hist.tiff"))
+ggsave(file.path(paperPath,"pPred_hist.pdf"))
 
 # combined p-values
 pAll <- c(result$pPred, pMean[genesNotToTest])
@@ -29,6 +31,8 @@ qplot(pAll,geom="histogram")+
   theme_bw(24)+
   labs(x="p")
 ggsave(file.path(paperPath,"p_all_cancer.png"))
+ggsave(file.path(paperPath,"p_all_cancer.tiff"))
+ggsave(file.path(paperPath,"p_all_cancer.pdf"))
 
 # compare pPred to pAsym
 plot(x=log(result$pAsymNorm,10), y=log(result$pPred,10))
@@ -48,13 +52,15 @@ abline(a=0,b=1, col="red")
 sum(result$pPred > 10^-3)
 #[1] 351
 
-# number of iterations
+# number of resamples
 dev.new(width=5,height=5)
 qplot(x=log(pPred,10), y=log(mStop*1000,10), data=result)+
 theme_bw(24)+
 labs(x=expression(paste("lo",g[10],"(",tilde(p)["pred"],")")),
-     y=expression(paste("lo",g[10],"(total iterations)")))
+     y=expression(paste("lo",g[10],"(total resamples)")))
 ggsave(file.path(paperPath,"cancer_iter.png"))
+ggsave(file.path(paperPath,"cancer_iter.tiff"))
+ggsave(file.path(paperPath,"cancer_iter.pdf"))
 
 # m_stop vs m_stop^asym
 dev.new(width=5,height=5)
@@ -64,7 +70,8 @@ qplot(x=EmStop, y=mStop, data=result)+
   labs(y=expression(m["stop"]),
        x=expression(m["stop"]^"asym"))
 ggsave(file.path(paperPath,"mStopPlot.png"))
-
+ggsave(file.path(paperPath,"mStopPlot.tiff"))
+ggsave(file.path(paperPath,"mStopPlot.pdf"))
 
 # get top genes
 resultSort <- result[order(result$pPred),]

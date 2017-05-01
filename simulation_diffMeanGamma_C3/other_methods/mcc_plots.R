@@ -32,6 +32,8 @@ ggplot(aes(x=log(pMC,10), y=log(value, 10), color=as.factor(n),
   scale_color_discrete("n")+
   scale_shape_discrete("n")
 ggsave(file.path(paperPath,"mcc_symGammaDiff_smallN.png"))
+ggsave(file.path(paperPath,"mcc_symGammaDiff_smallN.tiff"))
+ggsave(file.path(paperPath,"mcc_symGammaDiff_smallN.pdf"))
 
 # unsymmetric
 load("mccOut_nonSymGamma_smallN.Rdata")
@@ -57,6 +59,8 @@ ggplot(aes(x=log(pMC,10), y=log(value, 10), color=as.factor(nx),
   scale_color_discrete(expression(n[x]))+
   scale_shape_discrete(expression(n[x]))
 ggsave(file.path(paperPath,"mcc_nonSymGammaDiff_smallN.png"))
+ggsave(file.path(paperPath,"mcc_nonSymGammaDiff_smallN.tiff"))
+ggsave(file.path(paperPath,"mcc_nonSymGammaDiff_smallN.pdf"))
 
 # null ------------------------------------------------------------------------
 # symmetric
@@ -82,6 +86,8 @@ ggplot(aes(x=pMC, y=value, color=as.factor(n),
   scale_shape_discrete("n")+
  theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"mcc_symGammaDiff_null.png"))
+ggsave(file.path(paperPath,"mcc_symGammaDiff_null.tiff"))
+ggsave(file.path(paperPath,"mcc_symGammaDiff_null.pdf"))
 
 load("mccOut_nonSymGamma_null.Rdata")
 mccOut$pMC[which(mccOut$pMC == 0)] <- NA
@@ -106,3 +112,5 @@ ggplot(aes(x=pMC, y=value, color=as.factor(nx),
   scale_shape_discrete(expression(n[x]))+
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"mcc_nonSymGammaDiff_null.png"))
+ggsave(file.path(paperPath,"mcc_nonSymGammaDiff_null.tiff"))
+ggsave(file.path(paperPath,"mcc_nonSymGammaDiff_null.pdf"))

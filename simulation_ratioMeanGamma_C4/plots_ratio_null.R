@@ -78,6 +78,8 @@ ggplot(aes(x=pPerm, y=value, color=as.factor(n),
   #                    labels = c("0", "0.25", "0.5", "0.75", "1"))
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"simGamma_sym_null.png"))
+ggsave(file.path(paperPath,"simGamma_sym_null.tiff"))
+ggsave(file.path(paperPath,"simGamma_sym_null.pdf"))
 
 # nonsymmetric sample sizes
 load("nonSym/nonSymResultsGamma_null.RData")
@@ -150,3 +152,5 @@ ggplot(aes(x=pPerm, y=value, color=as.factor(nx),
   scale_shape_discrete(expression(n[x]))+
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"simGamma_nonSym_null.png"))
+ggsave(file.path(paperPath,"simGamma_nonSym_null.tiff"))
+ggsave(file.path(paperPath,"simGamma_nonSym_null.pdf"))

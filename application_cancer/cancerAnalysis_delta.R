@@ -61,6 +61,24 @@ with(all, plot(y = log(pDelta, 10), x = log(pPred, 10),
 abline(a = 0, b = 1, col = "red", lty = 2, lwd = 2)
 dev.off()
 
+tiff(file.path(paperPath, "pDelta_cancer_app.tiff"))
+par(mar = marDefault + c(0, 1, 0, 0))
+with(all, plot(y = log(pDelta, 10), x = log(pPred, 10), 
+               ylab = expression(paste("lo", g[10], "(", p[Delta], ")", sep = "")), 
+               xlab = expression(paste("lo", g[10], "(", tilde(p)["pred"], ")", sep = "")),
+               cex.axis = 1.8, cex.lab = 1.8))
+abline(a = 0, b = 1, col = "red", lty = 2, lwd = 2)
+dev.off()
+
+pdf(file.path(paperPath, "pDelta_cancer_app.pdf"))
+par(mar = marDefault + c(0, 1, 0, 0))
+with(all, plot(y = log(pDelta, 10), x = log(pPred, 10), 
+               ylab = expression(paste("lo", g[10], "(", p[Delta], ")", sep = "")), 
+               xlab = expression(paste("lo", g[10], "(", tilde(p)["pred"], ")", sep = "")),
+               cex.axis = 1.8, cex.lab = 1.8))
+abline(a = 0, b = 1, col = "red", lty = 2, lwd = 2)
+dev.off()
+
 all <- all[order(all$pDelta), ]
 zhanTop <- c("DSG3", "KRT5", "DSC3", "CALML3", "SERPINB13",
              "KRT6B", "KRT6C", "KRT6A", "PVRL1", "LOC642587",
@@ -90,12 +108,27 @@ with(largeP, plot(pMC, pDelta, xlab = expression(tilde(p)), ylab = expression(p[
 abline(a = 0, b = 1, col = "red", lty = 2, lwd = 2)
 dev.off()
 
-# all$rGT1 <- all$r >= 1
-# qplot(x = pMC, y = pDelta, color = rGT1, data = all)+
-# geom_abline(intercept = 0, slope = 1)
+pdf(file.path(paperPath, "pDelta_pMC_cancer_app.pdf"))
+par(mar = marDefault + c(0, 1, 0, 0))
+with(largeP, plot(pMC, pDelta, xlab = expression(tilde(p)), ylab = expression(p[Delta]),
+                  cex.axis = 1.8, cex.lab = 1.8))
+abline(a = 0, b = 1, col = "red", lty = 2, lwd = 2)
+dev.off()
+
+tiff(file.path(paperPath, "pDelta_pMC_cancer_app.tiff"))
+par(mar = marDefault + c(0, 1, 0, 0))
+with(largeP, plot(pMC, pDelta, xlab = expression(tilde(p)), ylab = expression(p[Delta]),
+                  cex.axis = 1.8, cex.lab = 1.8))
+abline(a = 0, b = 1, col = "red", lty = 2, lwd = 2)
+dev.off()
 
 
-# example of how wide the normal is, and whether the tails are cut off at 0
+all$rGT1 <- all$r >= 1
+qplot(x = pMC, y = pDelta, color = rGT1, data = all)+
+geom_abline(intercept = 0, slope = 1)
+
+
+# # example of how wide the normal is, and whether the tails are cut off at 0
 # example <- data.frame(x = seq(-1, 3, 0.01))
 # example$p <- dnorm(example$x, mean = 1, sd = vy)
 # plot(example, type = "l")

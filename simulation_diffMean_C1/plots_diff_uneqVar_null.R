@@ -55,6 +55,8 @@ ggplot(aes(x=pPermStud, y=value, color=as.factor(n),
   scale_shape_discrete("n")+
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"simDiff_sym_uneqVar_null.png"))
+ggsave(file.path(paperPath,"simDiff_sym_uneqVar_null.tiff"))
+ggsave(file.path(paperPath,"simDiff_sym_uneqVar_null.pdf"))
 
 
 # plotData <- melt(symResults, id.vars=c("n", "pt"), 
@@ -133,3 +135,5 @@ ggplot(aes(x=pPermStud, y=value, color=as.factor(nx),
   scale_shape_discrete(expression(n[x]))+
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"simDiff_nonSym_uneqVar_null.png"))
+ggsave(file.path(paperPath,"simDiff_nonSym_uneqVar_null.tiff"))
+ggsave(file.path(paperPath,"simDiff_nonSym_uneqVar_null.pdf"))

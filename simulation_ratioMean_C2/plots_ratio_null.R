@@ -45,7 +45,6 @@ ggplot(aes(y = value, x = variable), data = falseAlarmTabM)+
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))+
   labs(x = "", y = "Type I error rate")
 
-
 plotData <- melt(symResults, id.vars=c("n", "pPerm"), 
   measure.vars=c("pPred", "pAsymNorm", "pDeltaUneq", "pBeta"))
 
@@ -66,6 +65,8 @@ ggplot(aes(x=pPerm, y=value, color=as.factor(n),
   #                    labels = c("0", "0.25", "0.5", "0.75", "1"))
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"simExp_sym_null.png"))
+ggsave(file.path(paperPath,"simExp_sym_null.tiff"))
+ggsave(file.path(paperPath,"simExp_sym_null.pdf"))
 
 dev.new(width=6, height=5)
 ggplot(aes(x=pBeta, y=log(mStop*1000,10), color=as.factor(n),
@@ -73,12 +74,14 @@ ggplot(aes(x=pBeta, y=log(mStop*1000,10), color=as.factor(n),
   data=symResults)+
   geom_point(size=1.5)+
   theme_bw(24)+
-  labs(y=expression(paste("lo",g[10],"(total iterations)")),
+  labs(y=expression(paste("lo",g[10],"(total resamples)")),
       x=expression(p[beta]))+
   scale_color_discrete("n")+
   scale_shape_discrete("n")+
   geom_hline(yintercept=log(1e6+5e4,10))
 ggsave(file.path(paperPath,"simExp_sym_iter_null.png"))
+ggsave(file.path(paperPath,"simExp_sym_iter_null.tiff"))
+ggsave(file.path(paperPath,"simExp_sym_iter_null.pdf"))
 
 summary(symResults$pExpert6)
  #   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
@@ -86,7 +89,6 @@ summary(symResults$pExpert6)
 
 # nonsymmetric sample sizes
 load("nonSym/nonSymResultsExp_parallel_null_revision.RData")
-
 
 nVec <- unique(nonSymResults$nx)
 alpha <- c(0.01, 0.05, 0.1)
@@ -126,7 +128,6 @@ ggplot(aes(y = value, x = variable), data = falseAlarmTabM)+
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))+
   labs(x = "", y = "Type I error rate")
 
-
 plotData <- melt(nonSymResults, id.vars=c("nx", "pPerm"), 
   measure.vars=c("pPred", "pAsymNorm", "pDeltaUneq", "pBeta"))
 
@@ -146,6 +147,8 @@ ggplot(aes(x=pPerm, y=value, color=as.factor(nx),
   scale_shape_discrete(expression(n[x]))+
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"simExp_nonSym_null.png"))
+ggsave(file.path(paperPath,"simExp_nonSym_null.tiff"))
+ggsave(file.path(paperPath,"simExp_nonSym_null.pdf"))
 
 dev.new(width=6, height=5)
 ggplot(aes(x=pBeta, y=log(mStop*1000,10), color=as.factor(nx),
@@ -153,12 +156,14 @@ ggplot(aes(x=pBeta, y=log(mStop*1000,10), color=as.factor(nx),
   data=nonSymResults)+
   geom_point(size=1.5)+
   theme_bw(24)+
-  labs(y=expression(paste("lo",g[10],"(total iterations)")),
+  labs(y=expression(paste("lo",g[10],"(total resamples)")),
       x=expression(p[beta]))+
   scale_color_discrete(expression(n[x]))+
   scale_shape_discrete(expression(n[x]))+
   geom_hline(yintercept=log(1e6+5e4,10))
 ggsave(file.path(paperPath,"simExp_nonSym_iter_null.png"))
+ggsave(file.path(paperPath,"simExp_nonSym_iter_null.tiff"))
+ggsave(file.path(paperPath,"simExp_nonSym_iter_null.pdf"))
 
 summary(nonSymResults$pExpert6)
  #   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 

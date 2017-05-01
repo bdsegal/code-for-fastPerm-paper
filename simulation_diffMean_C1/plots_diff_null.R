@@ -65,6 +65,8 @@ ggplot(aes(x=pPerm, y=value, color=as.factor(n),
   scale_shape_discrete("n")+
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"simDiff_sym_null.png"))
+ggsave(file.path(paperPath,"simDiff_sym_null.tiff"))
+ggsave(file.path(paperPath,"simDiff_sym_null.pdf"))
 
 symResults %>% group_by(n, mux) %>%
   summarize(mStopMean = mean(mStop))
@@ -75,12 +77,14 @@ ggplot(aes(x=pt, y=log(mStop*1000,10), color=as.factor(n),
   data=symResults)+
   geom_point(size=1.5)+
   theme_bw(24)+
-  labs(y=expression(paste("lo",g[10],"(total iterations)")),
+  labs(y=expression(paste("lo",g[10],"(total resamples)")),
       x=expression(p[t]))+
   scale_color_discrete("n")+
   scale_shape_discrete("n")+
   geom_hline(yintercept=log(1e6+5e4,10))
 ggsave(file.path(paperPath,"simDiff_sym_iter_null.png"))
+ggsave(file.path(paperPath,"simDiff_sym_iter_null.tiff"))
+ggsave(file.path(paperPath,"simDiff_sym_iter_null.pdf"))
 
 summary(symResults$pExpert6)
  #   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
@@ -127,7 +131,6 @@ ggplot(aes(y = value, x = variable), data = falseAlarmTabM)+
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))+
   labs(x = "", y = "Type I error rate")
 
-
 plotData <- melt(nonSymResults, id.vars=c("nx", "pPerm"), 
   measure.vars=c("pPred","pAsymNorm", "pt"))
 
@@ -146,6 +149,8 @@ ggplot(aes(x=pPerm, y=value, color=as.factor(nx),
   scale_shape_discrete(expression(n[x]))+
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"simDiff_nonSym_null.png"))
+ggsave(file.path(paperPath,"simDiff_nonSym_null.tiff"))
+ggsave(file.path(paperPath,"simDiff_nonSym_null.pdf"))
 
 nonSymResults %>% group_by(nx) %>%
   summarize(mStopMean = mean(mStop))
@@ -155,12 +160,14 @@ ggplot(aes(x=pt, y=log(mStop*1000,10), color=as.factor(nx),
   shape=as.factor(nx)), data=nonSymResults)+
   geom_point(size=1.5)+
   theme_bw(24)+
-  labs(y=expression(paste("lo",g[10],"(total iterations)")),
+  labs(y=expression(paste("lo",g[10],"(total resamples)")),
       x=expression(p[t]))+
   scale_color_discrete(expression(n[x]))+
   scale_shape_discrete(expression(n[x]))+
   geom_hline(yintercept=log(1e6+5e4,10))
 ggsave(file.path(paperPath,"simDiff_nonSym_iter_null.png"))
+ggsave(file.path(paperPath,"simDiff_nonSym_iter_null.tiff"))
+ggsave(file.path(paperPath,"simDiff_nonSym_iter_null.pdf"))
 
 summary(nonSymResults$pExpert6)
  #   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 

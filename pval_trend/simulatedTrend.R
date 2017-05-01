@@ -89,7 +89,11 @@ ggplot(aes(x = m, log(p, 10)), data = plotData)+
   labs(y = expression(paste("lo", g[10], "(p)", sep = "")),
        x = "Partition m")
 ggsave(file.path(paperPath,"logp_ratio_mean_facet.png"))
-
+ggsave(file.path(paperPath,"logp_ratio_mean_facet.tiff"))
+ggsave(file.path(paperPath,"logp_ratio_mean_facet.pdf"))
+ggsave(file.path(paperPath,"figure_2.png"))
+ggsave(file.path(paperPath,"figure_2.tiff"))
+ggsave(file.path(paperPath,"figure_2.pdf"))
 
 
 

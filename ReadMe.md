@@ -24,6 +24,7 @@ The accompanying R package is at [https://github.com/bdsegal/fastPerm](https://g
     3. Run `cancerAnalysis_parallel_post.R`
     4. Run `cancerAnalysis_parallel_replicateTop15.R`
 7. `sample_size': Code for obtaining sufficient sample sizes (Web Appendix F) 
-8. `algorithm_schematic`: Code for making a small visual for explaining our resampling algorithm; not included in the paper
+8. `diff_gamma_saddle`: Code for checking saddle point approximation for difference in gamma random variables. Requires the [gammaDist](https://github.com/bdsegal/gammaDist) R package.
+9. `algorithm_schematic`: Code for making a small visual for explaining our resampling algorithm; not included in the paper
 
 Note: The `run` files are batch scripts for submitting jobs via [SLURM](http://slurm.schedmd.com/).

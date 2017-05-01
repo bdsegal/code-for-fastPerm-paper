@@ -33,6 +33,11 @@ ggplot(aes(x=log(pmin(pBeta, 1),10), y=log(value,10), color=as.factor(n),
 # ggsave("ratio_means.png")
   # theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"simExp_sym.png"))
+ggsave(file.path(paperPath,"simExp_sym.tiff"))
+ggsave(file.path(paperPath,"simExp_sym.pdf"))
+ggsave(file.path(paperPath,"figure_5a.png"))
+ggsave(file.path(paperPath,"figure_5a.tiff"))
+ggsave(file.path(paperPath,"figure_5a.pdf"))
 
 dev.new(width=6, height=5)
 ggplot(aes(x=log(pBeta,10), y=log(mStop*1000,10), color=as.factor(n),
@@ -40,52 +45,56 @@ ggplot(aes(x=log(pBeta,10), y=log(mStop*1000,10), color=as.factor(n),
   data=symResults)+
   geom_point(size=1.5)+
   theme_bw(24)+
-  labs(y=expression(paste("lo",g[10],"(total iterations)")),
+  labs(y=expression(paste("lo",g[10],"(total resamples)")),
       x=expression(paste("lo",g[10],"(",p[beta],")")))+
   scale_color_discrete("n")+
   scale_shape_discrete("n")+
   geom_hline(yintercept=log(1e6+5e4,10))
 ggsave(file.path(paperPath,"simExp_sym_iter.png"))
+ggsave(file.path(paperPath,"simExp_sym_iter.tiff"))
+ggsave(file.path(paperPath,"simExp_sym_iter.pdf"))
+ggsave(file.path(paperPath,"figure_5b.png"))
+ggsave(file.path(paperPath,"figure_5b.tiff"))
+ggsave(file.path(paperPath,"figure_5b.pdf"))
 
 summary(log(symResults$pExpert6,10))
 #    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
 # -63.530 -24.910 -11.770 -17.610  -5.795  -2.518     246 
 
 
-# for Colorado presentation
-plotData <- melt(symResults, id.vars=c("n", "pBeta"), 
-  measure.vars=c("pPred", "pExpert6"))
+# # for presentation
+# plotData <- melt(symResults, id.vars=c("n", "pBeta"), 
+#   measure.vars=c("pPred", "pExpert6"))
 
-levels(plotData$variable) <- c("Our method", "SAMC (competitor)")
+# levels(plotData$variable) <- c("Our method", "SAMC (competitor)")
 
-dev.new(width=9, height=5)
-ggplot(aes(x=log(pmin(pBeta, 1),10), y=log(value,10), color=as.factor(n),
-    shape=as.factor(n)),
-  data=plotData)+
-  geom_point(size=1.5)+
-  theme_bw(28)+
-  facet_grid(~variable)+
-  geom_abline(intercept=0, slope=1, linetype="dashed", size=1)+
-  labs(x=expression(paste("lo",g[10],"(",p[beta],")",sep="")),
-    y=expression(paste("lo",g[10],"(p)",sep="")))+
-  scale_color_discrete("n")+
-  scale_shape_discrete("n")
-  # theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
-ggsave(file.path("/home/bsegal/Dropbox/Research/job_talk_2017/plots","simExp_sym.png"))
+# dev.new(width=9, height=5)
+# ggplot(aes(x=log(pmin(pBeta, 1),10), y=log(value,10), color=as.factor(n),
+#     shape=as.factor(n)),
+#   data=plotData)+
+#   geom_point(size=1.5)+
+#   theme_bw(28)+
+#   facet_grid(~variable)+
+#   geom_abline(intercept=0, slope=1, linetype="dashed", size=1)+
+#   labs(x=expression(paste("lo",g[10],"(",p[beta],")",sep="")),
+#     y=expression(paste("lo",g[10],"(p)",sep="")))+
+#   scale_color_discrete("n")+
+#   scale_shape_discrete("n")
+#   # theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
+# ggsave(file.path("/home/bsegal/Dropbox/Research/job_talk_2017/plots","simExp_sym.png"))
 
-dev.new(width=6, height=5)
-ggplot(aes(x=log(pBeta,10), y=log(mStop*1000,10), color=as.factor(n),
-  shape=as.factor(n)),
-  data=symResults)+
-  geom_point(size=1.5)+
-  theme_bw(28)+
-  labs(y=expression(paste("lo",g[10],"(total iterations)")),
-      x=expression(paste("lo",g[10],"(",p[beta],")")))+
-  scale_color_discrete("n")+
-  scale_shape_discrete("n")+
-  geom_hline(yintercept=log(1e6+5e4,10))
-ggsave(file.path("/home/bsegal/Dropbox/Research/job_talk_2017/plots","simExp_sym_iter.png"))
-
+# dev.new(width=6, height=5)
+# ggplot(aes(x=log(pBeta,10), y=log(mStop*1000,10), color=as.factor(n),
+#   shape=as.factor(n)),
+#   data=symResults)+
+#   geom_point(size=1.5)+
+#   theme_bw(28)+
+#   labs(y=expression(paste("lo",g[10],"(total resamples)")),
+#       x=expression(paste("lo",g[10],"(",p[beta],")")))+
+#   scale_color_discrete("n")+
+#   scale_shape_discrete("n")+
+#   geom_hline(yintercept=log(1e6+5e4,10))
+# ggsave(file.path("/home/bsegal/Dropbox/Research/job_talk_2017/plots","simExp_sym_iter.png"))
 
 
 # nonsymmetric sample sizes
@@ -112,6 +121,11 @@ ggplot(aes(x=log(pBeta,10), y=log(value,10), color=as.factor(nx),
   scale_shape_discrete(expression(n[x]))
   # theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"simExp_nonSym.png"))
+ggsave(file.path(paperPath,"simExp_nonSym.tiff"))
+ggsave(file.path(paperPath,"simExp_nonSym.pdf"))
+ggsave(file.path(paperPath,"figure_6a.png"))
+ggsave(file.path(paperPath,"figure_6a.tiff"))
+ggsave(file.path(paperPath,"figure_6a.pdf"))
 
 dev.new(width=6, height=5)
 ggplot(aes(x=log(pBeta,10), y=log(mStop*1000,10), color=as.factor(nx),
@@ -119,17 +133,18 @@ ggplot(aes(x=log(pBeta,10), y=log(mStop*1000,10), color=as.factor(nx),
   data=nonSymResults)+
   geom_point(size=1.5)+
   theme_bw(24)+
-  labs(y=expression(paste("lo",g[10],"(total iterations)")),
+  labs(y=expression(paste("lo",g[10],"(total resamples)")),
       x=expression(paste("lo",g[10],"(",p[beta],")")))+
   scale_color_discrete(expression(n[x]))+
   scale_shape_discrete(expression(n[x]))+
   geom_hline(yintercept=log(1e6+5e4,10))
 ggsave(file.path(paperPath,"simExp_nonSym_iter.png"))
+ggsave(file.path(paperPath,"simExp_nonSym_iter.tiff"))
+ggsave(file.path(paperPath,"simExp_nonSym_iter.pdf"))
+ggsave(file.path(paperPath,"figure_6b.png"))
+ggsave(file.path(paperPath,"figure_6b.tiff"))
+ggsave(file.path(paperPath,"figure_6b.pdf"))
 
 summary(log(nonSymResults$pExpert6,10))
 #    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
 # -57.960 -18.080 -11.900 -13.880  -6.552  -2.556      33 
-
-
-plot(y=log(nonSymResults$pExpert6,10), x=log(nonSymResults$pBeta,10))
-abline(a=0, b=1)

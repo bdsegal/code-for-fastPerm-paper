@@ -32,6 +32,8 @@ ggplot(aes(x=log(pmin(pBeta, 1),10), y=log(value,10), color=as.factor(n),
   scale_shape_discrete("n")
   # theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"simExp_sym_smallN.png"))
+ggsave(file.path(paperPath,"simExp_sym_smallN.tiff"))
+ggsave(file.path(paperPath,"simExp_sym_smallN.pdf"))
 
 dev.new(width=6, height=5)
 ggplot(aes(x=log(pBeta,10), y=log(mStop*1000,10), color=as.factor(n),
@@ -39,12 +41,14 @@ ggplot(aes(x=log(pBeta,10), y=log(mStop*1000,10), color=as.factor(n),
   data=symResults)+
   geom_point(size=1.5)+
   theme_bw(24)+
-  labs(y=expression(paste("lo",g[10],"(total iterations)")),
+  labs(y=expression(paste("lo",g[10],"(total resamples)")),
       x=expression(paste("lo",g[10],"(",p[beta],")")))+
   scale_color_discrete("n")+
   scale_shape_discrete("n")+
   geom_hline(yintercept=log(1e6+5e4,10))
 ggsave(file.path(paperPath,"simExp_sym_iter_smallN.png"))
+ggsave(file.path(paperPath,"simExp_sym_iter_smallN.tiff"))
+ggsave(file.path(paperPath,"simExp_sym_iter_smallN.pdf"))
 
 summary(log(symResults$pExpert6,10))
 #    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
@@ -74,6 +78,8 @@ ggplot(aes(x=log(pBeta,10), y=log(value,10), color=as.factor(nx),
   scale_shape_discrete(expression(n[x]))
   # theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"simExp_nonSym_smallN.png"))
+ggsave(file.path(paperPath,"simExp_nonSym_smallN.tiff"))
+ggsave(file.path(paperPath,"simExp_nonSym_smallN.pdf"))
 
 dev.new(width=6, height=5)
 ggplot(aes(x=log(pBeta,10), y=log(mStop*1000,10), color=as.factor(nx),
@@ -81,12 +87,14 @@ ggplot(aes(x=log(pBeta,10), y=log(mStop*1000,10), color=as.factor(nx),
   data=nonSymResults)+
   geom_point(size=1.5)+
   theme_bw(24)+
-  labs(y=expression(paste("lo",g[10],"(total iterations)")),
+  labs(y=expression(paste("lo",g[10],"(total resamples)")),
       x=expression(paste("lo",g[10],"(",p[beta],")")))+
   scale_color_discrete(expression(n[x]))+
   scale_shape_discrete(expression(n[x]))+
   geom_hline(yintercept=log(1e6+5e4,10))
 ggsave(file.path(paperPath,"simExp_nonSym_iter_smallN.png"))
+ggsave(file.path(paperPath,"simExp_nonSym_iter_smallN.tiff"))
+ggsave(file.path(paperPath,"simExp_nonSym_iter_smallN.pdf"))
 
 summary(log(nonSymResults$pExpert6,10))
 #    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 

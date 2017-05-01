@@ -38,6 +38,8 @@ ggplot(aes(x=log(pmin(pPerm, 1),10), y=log(value,10), color=as.factor(n),
   scale_shape_discrete("n")+
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"simGammaDiff_sym_smallN.png"))
+ggsave(file.path(paperPath,"simGammaDiff_sym_smallN.tiff"))
+ggsave(file.path(paperPath,"simGammaDiff_sym_smallN.pdf"))
 
 # using saddle point as baseline
 plotData <- melt(symResults, id.vars=c("n", "alpha", "gammaDiffSaddle"), 
@@ -59,6 +61,8 @@ ggplot(aes(x=log(pmin(gammaDiffSaddle, 1),10), y=log(value,10), color=as.factor(
   scale_shape_discrete("n")+
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"simGammaDiff_sym_smallN_saddle.png"))
+ggsave(file.path(paperPath,"simGammaDiff_sym_smallN_saddle.tiff"))
+ggsave(file.path(paperPath,"simGammaDiff_sym_smallN_saddle.pdf"))
 
 dev.new(width=6, height=5)
 ggplot(aes(x=log(gammaDiffSaddle,10), y=log(mStop*1000,10), color=as.factor(n),
@@ -66,16 +70,14 @@ ggplot(aes(x=log(gammaDiffSaddle,10), y=log(mStop*1000,10), color=as.factor(n),
   data=symResults)+
   geom_point(size=1.5)+
   theme_bw(24)+
-  labs(y=expression(paste("lo",g[10],"(total iterations)")),
+  labs(y=expression(paste("lo",g[10],"(total resamples)")),
       x=expression(paste("lo",g[10],"(",p["saddle"],")")))+
   scale_color_discrete("n")+
   scale_shape_discrete("n")+
   geom_hline(yintercept=log(1e6+5e4,10))
 ggsave(file.path(paperPath,"simGammaDiff_sym_iter_smallN.png"))
-
-summary(log(symResults$pExpert6,10))
-#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-# -11.810  -5.271  -4.037  -4.438  -3.191  -2.322     851 
+ggsave(file.path(paperPath,"simGammaDiff_sym_iter_smallN.tiff"))
+ggsave(file.path(paperPath,"simGammaDiff_sym_iter_smallN.pdf"))
 
 # nonsymmetric sample sizes
 load("nonSym/nonSymResultsGammaDiff_smallN.RData")
@@ -105,6 +107,8 @@ ggplot(aes(x=log(pPerm,10), y=log(value,10), color=as.factor(nx),
   scale_shape_discrete(expression(n[x]))
   # theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"simGammaDiff_nonSym_smallN.png"))
+ggsave(file.path(paperPath,"simGammaDiff_nonSym_smallN.tiff"))
+ggsave(file.path(paperPath,"simGammaDiff_nonSym_smallN.pdf"))
 
 dev.new(width=6, height=5)
 ggplot(aes(x=log(pPerm,10), y=log(mStop*1000,10), color=as.factor(nx),
@@ -112,16 +116,11 @@ ggplot(aes(x=log(pPerm,10), y=log(mStop*1000,10), color=as.factor(nx),
   data=nonSymResults)+
   geom_point(size=1.5)+
   theme_bw(24)+
-  labs(y=expression(paste("lo",g[10],"(total iterations)")),
+  labs(y=expression(paste("lo",g[10],"(total resamples)")),
       x=expression(paste("lo",g[10],"(",p[beta],")")))+
   scale_color_discrete(expression(n[x]))+
   scale_shape_discrete(expression(n[x]))+
   geom_hline(yintercept=log(1e6+5e4,10))
 ggsave(file.path(paperPath,"simGammaDiff_nonSym_iter_smallN.png"))
-
-summary(log(nonSymResults$pExpert6,10))
-#    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-# -11.500  -5.228  -3.830  -4.372  -3.100  -2.275     922 
-
-# plot(y=log(nonSymResults$pExpert6,10), x=log(nonSymResults$pBeta,10))
-# abline(a=0, b=1)
+ggsave(file.path(paperPath,"simGammaDiff_nonSym_iter_smallN.tiff"))
+ggsave(file.path(paperPath,"simGammaDiff_nonSym_iter_smallN.pdf"))

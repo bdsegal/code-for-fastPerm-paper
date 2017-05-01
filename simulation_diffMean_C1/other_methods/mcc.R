@@ -61,6 +61,8 @@ ggplot(aes(x=log(pt,10), y=log(value, 10), color=as.factor(n),
   scale_shape_discrete("n")+
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"mcc_sym.png"))
+ggsave(file.path(paperPath,"mcc_sym.tiff"))
+ggsave(file.path(paperPath,"mcc_sym.pdf"))
 
 
 
@@ -119,6 +121,8 @@ ggplot(aes(x=log(pt,10), y=log(value, 10), color=as.factor(nx),
   scale_shape_discrete(expression(n[x]))+
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"mcc_nonSym.png"))
+ggsave(file.path(paperPath,"mcc_nonSym.tiff"))
+ggsave(file.path(paperPath,"mcc_nonSym.pdf"))
 
 
 # Small sample size
@@ -176,6 +180,8 @@ ggplot(aes(x=log(pt,10), y=log(value, 10), color=as.factor(n),
   scale_color_discrete("n")+
   scale_shape_discrete("n")
 ggsave(file.path(paperPath,"mcc_sym_smallN.png"))
+ggsave(file.path(paperPath,"mcc_sym_smallN.tiff"))
+ggsave(file.path(paperPath,"mcc_sym_smallN.pdf"))
 
 
 # non-symmetric sample sizes ------------------------------------------------------
@@ -232,7 +238,8 @@ ggplot(aes(x=log(pt,10), y=log(value, 10), color=as.factor(nx),
   scale_color_discrete(expression(n[x]))+
   scale_shape_discrete(expression(n[x]))
 ggsave(file.path(paperPath,"mcc_nonSym_smallN.png"))
-
+ggsave(file.path(paperPath,"mcc_nonSym_smallN.tiff"))
+ggsave(file.path(paperPath,"mcc_nonSym_smallN.pdf"))
 
 
 
@@ -289,6 +296,8 @@ ggplot(aes(x=pt, y=value, color=as.factor(n),
   scale_shape_discrete("n")+
  theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"mcc_sym_null.png"))
+ggsave(file.path(paperPath,"mcc_sym_null.tiff"))
+ggsave(file.path(paperPath,"mcc_sym_null.pdf"))
 
 
 # non-symmetric sample sizes ------------------------------------------------------
@@ -341,7 +350,8 @@ ggplot(aes(x=pt, y=value, color=as.factor(nx),
   scale_shape_discrete(expression(n[x]))+
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
 ggsave(file.path(paperPath,"mcc_nonSym_null.png"))
-
+ggsave(file.path(paperPath,"mcc_nonSym_null.tiff"))
+ggsave(file.path(paperPath,"mcc_nonSym_null.pdf"))
 
 
 

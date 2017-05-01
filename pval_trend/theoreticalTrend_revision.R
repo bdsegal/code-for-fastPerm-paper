@@ -114,8 +114,12 @@ ggplot(aes(x = m, y = log(p,10)), data = data)+
   geom_point(size = 1.5)+
   theme_bw(25)+
   labs(y = expression(paste("lo", g[10], "(p)")), x = "Partition m")
-
 ggsave(file.path(paperPath,"pApprox_ratio_100_100_revision.png"))
+ggsave(file.path(paperPath,"pApprox_ratio_100_100_revision.tiff"))
+ggsave(file.path(paperPath,"pApprox_ratio_100_100_revision.pdf"))
+ggsave(file.path(paperPath,"figure_1a.png"))
+ggsave(file.path(paperPath,"figure_1a.tiff"))
+ggsave(file.path(paperPath,"figure_1a.pdf"))
 
 data$p[which(data$p <= 10^-3)] <- 10^-3
 
@@ -125,7 +129,11 @@ ggplot(aes(x = m, y = log(p,10)), data = data)+
   theme_bw(25)+
   labs(y = expression(paste("lo", g[10], "(p)")), x = "Partition m")
 ggsave(file.path(paperPath,"pApprox_100_100_10ToThe3Cutoff_revision.png"))
-
+ggsave(file.path(paperPath,"pApprox_100_100_10ToThe3Cutoff_revision.tiff"))
+ggsave(file.path(paperPath,"pApprox_100_100_10ToThe3Cutoff_revision.pdf"))
+ggsave(file.path(paperPath,"figure_1b.png"))
+ggsave(file.path(paperPath,"figure_1b.tiff"))
+ggsave(file.path(paperPath,"figure_1b.pdf"))
 
 # difference
 nx=100
@@ -160,3 +168,5 @@ ggplot(aes(x = m, y = log(p,10)), data = data)+
   theme_bw(22)+
   labs(y = expression(paste("lo", g[10], "(p)")), x = "Partition m")
 ggsave(file.path(paperPath,"pApprox_Diff_100_100.png"))
+ggsave(file.path(paperPath,"pApprox_Diff_100_100.tiff"))
+ggsave(file.path(paperPath,"pApprox_Diff_100_100.pdf"))

@@ -31,7 +31,6 @@ ggplot(aes(x=log(pt,10), y=log(value,10), color=as.factor(n),
   scale_shape_discrete("n")+
   # scale_x_continuous(breaks=seq(0,-120,-30))+
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
-ggsave(file.path(paperPath,"simDiff_sym_smallN.png"))
 
 # non-symmetrblic sample size
 load(file="nonSym/nonSymResultsDiff_parallel_uneqVar.RData")
@@ -57,4 +56,3 @@ ggplot(aes(x=log(pt,10), y=log(value,10), color=as.factor(nx),
   scale_color_discrete(expression(n[x]))+
   scale_shape_discrete(expression(n[x]))+
   theme(axis.text.x = element_text(angle = 45, hjust = 0.9))
-ggsave(file.path(paperPath,"simDiff_nonSym_uneqVar.png"))
