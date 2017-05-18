@@ -1,8 +1,8 @@
-## Code for reproducing simulations and analyses in "Fast approximation of small p-values in permutation tests by partitioning the permutations" by Brian D. Segal, Thomas Braun, Michael Elliott, and Hui Jiang. Submitted.
+# Code for reproducing simulations and analyses in Segal et al. (2017)
 
 The accompanying R package is at [https://github.com/bdsegal/fastPerm](https://github.com/bdsegal/fastPerm).
 
-### Contents:
+## Contents:
 
 1. `pval_trend`: Code for Figure 1
 2. `simulation_diffMean_C1`: Code for the difference in means simulations with normal data and equal variances (Web Appendix C.1) and unequal variances (Web Appendix E)
@@ -28,3 +28,7 @@ The accompanying R package is at [https://github.com/bdsegal/fastPerm](https://g
 9. `algorithm_schematic`: Code for making a small visual for explaining our resampling algorithm; not included in the paper
 
 Note: The `run` files are batch scripts for submitting jobs via [SLURM](http://slurm.schedmd.com/).
+
+## References
+
+Segal, B. D., Braun, T., Elliott, M. R. and Jiang, H. (2017), Fast approximation of small p-values in permutation tests by partitioning the permutations. Biometrics doi:[10.1111/biom.12731](http://onlinelibrary.wiley.com/doi/10.1111/biom.12731/full)
