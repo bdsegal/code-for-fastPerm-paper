@@ -1,4 +1,4 @@
-# Code for reproducing simulations and analyses in Segal et al. (2017)
+# Code for reproducing simulations and analyses in Segal et al. (2018)
 
 The accompanying R package is at [https://github.com/bdsegal/fastPerm](https://github.com/bdsegal/fastPerm).
 
@@ -31,4 +31,4 @@ Note: The `run` files are batch scripts for submitting jobs via [SLURM](http://s
 
 ## References
 
-Segal, B. D., Braun, T., Elliott, M. R. and Jiang, H. (2017). Fast approximation of small p-values in permutation tests by partitioning the permutations. Biometrics doi:[10.1111/biom.12731](http://onlinelibrary.wiley.com/doi/10.1111/biom.12731/full)
+Segal, B. D., Braun, T., Elliott, M. R. and Jiang, H. (2018). Fast approximation of small p-values in permutation tests by partitioning the permutations. Biometrics, 74(1), 196-206. [doi:10.1111/biom.12731](http://dx.doi.org/10.1111/biom.12731).
